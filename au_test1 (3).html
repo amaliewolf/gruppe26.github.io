@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>AU_TEST 1 — Live Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f5f5f5;
+    }
+    h1 { color: #333; }
+    h2 { color: #555; margin-top: 40px; margin-bottom: 8px; }
+    h3 { color: #777; margin: 20px 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Status badge */
+    #status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .ok   { background: #d4edda; color: #155724; }
+    .err  { background: #f8d7da; color: #721c24; }
+    .wait { background: #fff3cd; color: #856404; }
+
+    /* Kortgrupper */
+    .gruppe { margin-bottom: 8px; }
+    .cards {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 14px 20px;
+      min-width: 110px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      text-align: center;
+    }
+    .card .label { font-size: 12px; color: #888; }
+    .card .value { font-size: 26px; font-weight: bold; color: #222; margin-top: 4px; }
+    .card .unit  { font-size: 12px; color: #888; }
+
+    /* Tabel */
+    .tabel-wrapper {
+      overflow-x: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    th {
+      background: #333;
+      color: white;
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 15px;
+    }
+    th.gruppe-bme    { background: #2c5f8a; }
+    th.gruppe-pms    { background: #4a7c4e; }
+    th.gruppe-as     { background: #7a4a8a; }
+    th.gruppe-mic    { background: #8a5a2a; }
+    th.gruppe-tid    { background: #333;    }
+    td { padding: 12px 16px; border-bottom: 1px solid #eee; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #fafafa; }
+  </style>
+</head>
+<body>
+
+  <h1>SmartRoots — AU_TEST 1</h1>
+
+  <!-- ══ LIVE SSE ══════════════════════════════════════════════ -->
+  <h2>Live data (SSE)</h2>
+  <span id="status" class="wait">Forbinder...</span>
+  <small id="opdateret" style="color:#999; display:block; margin-bottom:16px">Ingen data modtaget endnu</small>
+
+  <!-- BME680 -->
+  <div class="gruppe">
+    <h3>BME680 — Luft</h3>
+    <div class="cards">
+      <div class="card"><div class="label">Temperatur</div><div class="value" id="temperature_c">—</div><div class="unit">°C</div></div>
+      <div class="card"><div class="label">Luftfugtighed</div><div class="value" id="humidity_pct">—</div><div class="unit">%</div></div>
+      <div class="card"><div class="label">Tryk</div><div class="value" id="pressure_hpa">—</div><div class="unit">hPa</div></div>
+      <div class="card"><div class="label">Gas</div><div class="value" id="gas_kohms">—</div><div class="unit">kΩ</div></div>
+      <div class="card"><div class="label">Højde</div><div class="value" id="altitude_m">—</div><div class="unit">m</div></div>
+    </div>
+  </div>
+
+  <!-- PMS5003 -->
+  <div class="gruppe">
+    <h3>PMS5003 — Partikler</h3>
+    <div class="cards">
+      <div class="card"><div class="label">PM1.0</div><div class="value" id="pm10_env">—</div><div class="unit">µg/m³</div></div>
+      <div class="card"><div class="label">PM2.5</div><div class="value" id="pm25_env">—</div><div class="unit">µg/m³</div></div>
+      <div class="card"><div class="label">PM10</div><div class="value" id="pm100_env">—</div><div class="unit">µg/m³</div></div>
+      <div class="card"><div class="label">≥0.3µm</div><div class="value" id="particles_03um">—</div><div class="unit">/0.1L</div></div>
+      <div class="card"><div class="label">≥0.5µm</div><div class="value" id="particles_05um">—</div><div class="unit">/0.1L</div></div>
+      <div class="card"><div class="label">≥1.0µm</div><div class="value" id="particles_10um">—</div><div class="unit">/0.1L</div></div>
+      <div class="card"><div class="label">≥2.5µm</div><div class="value" id="particles_25um">—</div><div class="unit">/0.1L</div></div>
+      <div class="card"><div class="label">≥5.0µm</div><div class="value" id="particles_50um">—</div><div class="unit">/0.1L</div></div>
+      <div class="card"><div class="label">≥10µm</div><div class="value" id="particles_100um">—</div><div class="unit">/0.1L</div></div>
+    </div>
+  </div>
+
+  <!-- AS7341 -->
+  <div class="gruppe">
+    <h3>AS7341 — Lys (spektrum)</h3>
+    <div class="cards">
+      <div class="card"><div class="label">415 nm</div><div class="value" id="f1_415nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">445 nm</div><div class="value" id="f2_445nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">480 nm</div><div class="value" id="f3_480nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">515 nm</div><div class="value" id="f4_515nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">555 nm</div><div class="value" id="f5_555nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">590 nm</div><div class="value" id="f6_590nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">630 nm</div><div class="value" id="f7_630nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">680 nm</div><div class="value" id="f8_680nm">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">Clear</div><div class="value" id="clear">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">NIR</div><div class="value" id="nir">—</div><div class="unit">counts</div></div>
+      <div class="card"><div class="label">Flicker</div><div class="value" id="flicker_hz">—</div><div class="unit">Hz</div></div>
+    </div>
+  </div>
+
+  <!-- Mikrofon -->
+  <div class="gruppe">
+    <h3>Mikrofon</h3>
+    <div class="cards">
+      <div class="card"><div class="label">Støj</div><div class="value" id="spl_db">—</div><div class="unit">dB</div></div>
+    </div>
+  </div>
+
+  <!-- ══ HISTORIK ══════════════════════════════════════════════ -->
+  <h2>Historik (seneste 20 målinger)</h2>
+  <div class="tabel-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th class="gruppe-tid">Tidspunkt</th>
+          <!-- BME680 -->
+          <th class="gruppe-bme">Temp (°C)</th>
+          <th class="gruppe-bme">Fugt (%)</th>
+          <th class="gruppe-bme">Tryk (hPa)</th>
+          <th class="gruppe-bme">Gas (kΩ)</th>
+          <th class="gruppe-bme">Højde (m)</th>
+          <!-- PMS5003 -->
+          <th class="gruppe-pms">PM1.0</th>
+          <th class="gruppe-pms">PM2.5</th>
+          <th class="gruppe-pms">PM10</th>
+          <th class="gruppe-pms">≥0.3µm</th>
+          <th class="gruppe-pms">≥0.5µm</th>
+          <th class="gruppe-pms">≥1.0µm</th>
+          <th class="gruppe-pms">≥2.5µm</th>
+          <th class="gruppe-pms">≥5.0µm</th>
+          <th class="gruppe-pms">≥10µm</th>
+          <!-- AS7341 -->
+          <th class="gruppe-as">415nm</th>
+          <th class="gruppe-as">445nm</th>
+          <th class="gruppe-as">480nm</th>
+          <th class="gruppe-as">515nm</th>
+          <th class="gruppe-as">555nm</th>
+          <th class="gruppe-as">590nm</th>
+          <th class="gruppe-as">630nm</th>
+          <th class="gruppe-as">680nm</th>
+          <th class="gruppe-as">Clear</th>
+          <th class="gruppe-as">NIR</th>
+          <th class="gruppe-as">Flicker (Hz)</th>
+          <!-- Mikrofon -->
+          <th class="gruppe-mic">Støj (dB)</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr><td colspan="27" style="color:#999">Henter...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  // ---- Konfiguration ----
+  const DEVICE      = 'AU_STUDENT1';
+  const SERVER_URL  = 'https://iot-paia-production.up.railway.app';
+  const BASE        = SERVER_URL + '/api/env-sensors/' + DEVICE;
+
+  // ---- Hjælpefunktioner ----
+  function fmt(v, dec = 1) {
+    return v != null ? Number(v).toFixed(dec) : '—';
+  }
+
+  function fmtHel(v) {
+    return v != null ? Number(v).toFixed(0) : '—';
+  }
+
+  function fmtTid(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleString('da-DK', {
+      dateStyle: 'short',
+      timeStyle: 'medium'
+    });
+  }
+
+  // ---- SSE: live data ----
+  const statusEl    = document.getElementById('status');
+  const opdateretEl = document.getElementById('opdateret');
+
+  // Alle felter der skal opdateres — { feltId: [nøgle, decimaler] }
+  const FELTER = {
+    // BME680
+    temperature_c:   ['temperature_c',   1],
+    humidity_pct:    ['humidity_pct',     1],
+    pressure_hpa:    ['pressure_hpa',     0],
+    gas_kohms:       ['gas_kohms',        1],
+    altitude_m:      ['altitude_m',       1],
+    // PMS5003
+    pm10_env:        ['pm10_env',         1],
+    pm25_env:        ['pm25_env',         1],
+    pm100_env:       ['pm100_env',        1],
+    particles_03um:  ['particles_03um',   0],
+    particles_05um:  ['particles_05um',   0],
+    particles_10um:  ['particles_10um',   0],
+    particles_25um:  ['particles_25um',   0],
+    particles_50um:  ['particles_50um',   0],
+    particles_100um: ['particles_100um',  0],
+    // AS7341
+    f1_415nm:        ['f1_415nm',         0],
+    f2_445nm:        ['f2_445nm',         0],
+    f3_480nm:        ['f3_480nm',         0],
+    f4_515nm:        ['f4_515nm',         0],
+    f5_555nm:        ['f5_555nm',         0],
+    f6_590nm:        ['f6_590nm',         0],
+    f7_630nm:        ['f7_630nm',         0],
+    f8_680nm:        ['f8_680nm',         0],
+    clear:           ['clear',            0],
+    nir:             ['nir',              0],
+    flicker_hz:      ['flicker_hz',       0],
+    // Mikrofon
+    spl_db:          ['spl_db',           1],
+  };
+
+  function setStatus(tekst, cls) {
+    statusEl.textContent = tekst;
+    statusEl.className   = cls;
+  }
+
+  function opdaterKort(d) {
+    for (const [id, [nøgle, dec]] of Object.entries(FELTER)) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = fmt(d[nøgle], dec);
+    }
+    opdateretEl.textContent = 'Sidst opdateret: ' + new Date().toLocaleTimeString('da-DK');
+  }
+
+  function forbindSSE() {
+    const es = new EventSource(BASE + '/stream');
+
+    es.onopen = () => setStatus('Forbundet — modtager live data', 'ok');
+
+    es.onmessage = (event) => {
+      try {
+        opdaterKort(JSON.parse(event.data));
+      } catch {
+        // ugyldig besked — ignorer
+      }
+    };
+
+    es.onerror = () => {
+      setStatus('Forbindelsesfejl — prøver igen om 5 sek', 'err');
+      es.close();
+      setTimeout(forbindSSE, 5000);
+    };
+  }
+
+  forbindSSE();
+
+  // ---- Fetch: historik ----
+  async function hentHistorik() {
+    const tbody = document.getElementById('tbody');
+    try {
+      const svar = await fetch(BASE + '/history?limit=20');
+      if (!svar.ok) throw new Error('HTTP ' + svar.status);
+      const rækker = await svar.json();
+
+      if (!rækker.length) {
+        tbody.innerHTML = '<tr><td colspan="27" style="color:#999">Ingen data fundet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = rækker.map(r => `
+        <tr>
+          <td>${fmtTid(r.Created_At)}</td>
+          <td>${fmt(r.temperature_c)}</td>
+          <td>${fmt(r.humidity_pct)}</td>
+          <td>${fmtHel(r.pressure_hpa)}</td>
+          <td>${fmt(r.gas_kohms)}</td>
+          <td>${fmt(r.altitude_m)}</td>
+          <td>${fmt(r.pm10_env)}</td>
+          <td>${fmt(r.pm25_env)}</td>
+          <td>${fmt(r.pm100_env)}</td>
+          <td>${fmtHel(r.particles_03um)}</td>
+          <td>${fmtHel(r.particles_05um)}</td>
+          <td>${fmtHel(r.particles_10um)}</td>
+          <td>${fmtHel(r.particles_25um)}</td>
+          <td>${fmtHel(r.particles_50um)}</td>
+          <td>${fmtHel(r.particles_100um)}</td>
+          <td>${fmtHel(r.f1_415nm)}</td>
+          <td>${fmtHel(r.f2_445nm)}</td>
+          <td>${fmtHel(r.f3_480nm)}</td>
+          <td>${fmtHel(r.f4_515nm)}</td>
+          <td>${fmtHel(r.f5_555nm)}</td>
+          <td>${fmtHel(r.f6_590nm)}</td>
+          <td>${fmtHel(r.f7_630nm)}</td>
+          <td>${fmtHel(r.f8_680nm)}</td>
+          <td>${fmtHel(r.clear)}</td>
+          <td>${fmtHel(r.nir)}</td>
+          <td>${fmtHel(r.flicker_hz)}</td>
+          <td>${fmt(r.spl_db)}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="27" style="color:red">Fejl ved hentning: ${err.message}</td></tr>`;
+    }
+  }
+
+  hentHistorik();
+</script>
+</body>
+</html>
