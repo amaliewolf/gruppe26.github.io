@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    color: #111;
+}
+
+.app {
+    min-height: 100vh;
+    padding: 50px 20px 120px 20px;
+    text-align: center;
+    background-color: #f3f3f3;
+}
+
+h1 {
+    margin: 0;
+    font-size: 44px;
+    font-weight: normal;
+}
+
+.status {
+    margin: 18px 0 50px 0;
+    font-size: 34px;
+    font-weight: normal;
+}
+
+/* Layout på siden */
+.hus-side {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    flex-wrap: wrap;
+}
+
+/* Boks til målinger */
+.maalinger-boks {
+    width: 370px;
+    background-color: #e7e7e7;
+    border-radius: 28px;
+    padding: 32px 34px;
+    text-align: left;
+}
+
+.maalinger-boks h2 {
+    margin: 0 0 25px 0;
+    font-size: 22px;
+    color: #5b93bb;
+    font-weight: bold;
+}
+
+.maalinger-boks p {
+    margin: 0 0 18px 0;
+    font-size: 20px;
+}
+
+/* Område med stort hus */
+.hus-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+}
+
+/* Selve det store hus */
+.stor-hus {
+    position: relative;
+    width: 230px;
+    height: 185px;
+    background-color: #78add0;
+    margin-top: 95px;
+    border-radius: 4px;
+}
+
+/* Taget */
+.stor-hus::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -115px;
+    width: 0;
+    height: 0;
+    border-left: 135px solid transparent;
+    border-right: 135px solid transparent;
+    border-bottom: 115px solid #78add0;
+}
+
+/* Familieikon inde i huset */
+.familie-i-hus {
+    position: absolute;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%);
+    width: 90px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* -------------------- */
+/* MENU NEDERST */
+/* -------------------- */
+
+.menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #f3f3f3;
+    border-top: 1px solid #999;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-knap {
+    width: 85px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 16px;
+}
+
+.menu-knap img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    display: block;
+}
+
+.menu-knap.active {
+    background-color: #e7e7e7;
+}
+
+/* -------------------- */
+/* RESPONSIV / MOBIL */
+/* -------------------- */
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 34px;
+    }
+
+    .status {
+        font-size: 26px;
+    }
+
+    .hus-side {
+        gap: 50px;
+    }
+
+    .maalinger-boks {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .stor-hus {
+        width: 190px;
+        height: 150px;
+        margin-top: 80px;
+    }
+
+    .stor-hus::before {
+        top: -90px;
+        border-left: 110px solid transparent;
+        border-right: 110px solid transparent;
+        border-bottom: 95px solid #78add0;
+    }
+
+    .familie-i-hus {
+        width: 70px;
+        bottom: 25px;
+    }
+}
+
+
+

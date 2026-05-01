@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forside</title>
+    <link rel="stylesheet" href="forside.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- Knapper oppe i højre hjørne -->
+        <div class="top-knapper">
+
+            <!-- Emoji-knap + emoji-panel -->
+            <div class="emoji-wrapper">
+
+                <button class="emoji-knap" id="emojiKnap">
+                    <span id="valgtEmoji">☘️</span>
+                </button>
+
+                <div class="emoji-panel" id="emojiPanel">
+                    <button data-emoji="☘️">☘️</button>
+                    <button data-emoji="👍">👍</button>
+                    <button data-emoji="👎">👎</button>
+                    <button data-emoji="❤️">❤️</button>
+                    <button data-emoji="👏">👏</button>
+
+                    <button data-emoji="😄">😄</button>
+                    <button data-emoji="😟">😟</button>
+                    <button data-emoji="😮">😮</button>
+                    <button data-emoji="🤔">🤔</button>
+                    <button data-emoji="😴">😴</button>
+
+                    <button data-emoji="🔥">🔥</button>
+                    <button data-emoji="⭐">⭐</button>
+                    <button data-emoji="🌈">🌈</button>
+                    <button data-emoji="💡">💡</button>
+                    <button data-emoji="🌿">🌿</button>
+                </div>
+
+            </div>
+
+            <!-- Farveknap -->
+            <button class="farve-knap" id="farveKnap">
+                <img src="farvehjul.png" alt="Vælg farve">
+            </button>
+
+            <input type="color" id="farveVaelger" value="#5eb3d4">
+
+        </div>
+
+        <h1>Hvordan føler du rummet lige nu?</h1>
+
+        <!-- Kløver -->
+        <div class="klover-wrapper">
+            <div class="klover" id="klover"></div>
+        </div>
+
+        <!-- Slider -->
+        <section class="slider-omraade">
+            <p>Ubehageligt</p>
+
+            <input 
+                type="range" 
+                min="0" 
+                max="100" 
+                value="50" 
+                class="slider" 
+                id="rumSlider"
+            >
+
+            <p>Behageligt</p>
+        </section>
+
+        <!-- Bekræft-knap -->
+        <a href="#popup" class="bekraeft-knap">Bekræft</a>
+
+        <!-- Popup -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-box">
+
+                <a href="#" class="luk-knap">&times;</a>
+
+                <p>Tak for din feedback!</p>
+                <p>Det er modtaget</p>
+                <p>God dag</p>
+
+            </div>
+        </div>
+
+        <!-- Menu nederst -->
+        <nav class="menu">
+
+    <a href="forside.html" class="menu-knap active">
+        <img src="familie.png" alt="Familie">
+    </a>
+
+    <a href="huset.html" class="menu-knap">
+        <img src="hus5.png" alt="Hjem">
+    </a>
+
+</nav>
+
+    </main>
+
+    <script src="forside.js"></script>
+
+</body>
+</html>
