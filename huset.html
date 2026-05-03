@@ -7,81 +7,59 @@
     <link rel="stylesheet" href="huset.css">
 </head>
 
-<script>
-const DEVICE = 'AU_STUDENT1';
-const SERVER_URL = 'https://iot-paia-production.up.railway.app';
-const BASE = SERVER_URL + '/api/env-sensors/' + DEVICE;
 
-function fmt(v, dec = 1) {
-return v != null ? Number(v).toFixed(dec) : '—';
-}
-
-function opdaterKort(d) {
-const tempEl = document.getElementById('temperature_c');
-const humEl = document.getElementById('humidity_pct');
-
-if (tempEl) tempEl.textContent = fmt(d.temperature_c, 1);
-if (humEl) humEl.textContent = fmt(d.humidity_pct, 1);
-}
-
-function forbindSSE() {
-const es = new EventSource(BASE + '/stream');
-
-es.onmessage = (event) => {
-try {
-opdaterKort(JSON.parse(event.data));
-} catch {
-console.log('Kunne ikke læse data');
-}
-};
-
-es.onerror = () => {
-es.close();
-setTimeout(forbindSSE, 5000);
-};
-}
-
-forbindSSE();
-</script>
 
 <body>
 
     <main class="app">
 
-        <h1>Dit hjem har det:</h1>
+        <h1>Hjemmet har det:</h1>
         <p class="status">Behageligt!</p>
 
-        <section class="hus-side">
+   <section class="hus-side">
 
-            <!-- Boks med målinger -->
-            <div class="maalinger-boks">
-                <h2>Live målinger inde i huset:</h2>
-                <p>Temperatur: <span id="temperature_c">—</span></p>
-                
-                <p>Luftfugtighed: <span id="humidity_pct">—</span></p>
-            </div>
+    <div class="maalinger-omraade">
+        <div class="maalinger-boks">
+             
+            <h2>Seneste live målinger fra hjemmet:</h2>
+            <p>Temperatur: <span id="temperature_c">—</span></p>
+            <p>Luftfugtighed: <span id="humidity_pct">—</span></p>
+           
+            <p id="opdateret" class="opdateret-tekst">Sidst opdateret: —</p>
+        </div>
 
-            <!-- Stort hus -->
-            <div class="hus-illustration">
-                <div class="stor-hus">
-                    <img src="familie.png" alt="Familie" class="familie-i-hus">
-                </div>
-            </div>
+  <a href="arkiv.html" class="arkiv-ikon-knap">
+    <svg viewBox="0 0 24 24" class="ikon">
+        <path d="M3 9h18"></path>
+        <path d="M4 9v10h16V9"></path>
+        <path d="M6 9V7h12v2"></path>
+        <path d="M6 7h12"></path>
+        <path d="M7 5h10"></path>
+        <rect x="10" y="14" width="4" height="2" rx="1"></rect>
+    </svg>
+</a>
+    </div>
 
-        </section>
+    <div class="hus-illustration">
+        <div class="stor-hus">
+            <img src="people.png" alt="Familie" class="familie-i-hus">
+        </div>
+    </div>
+
+</section>
 
         <!-- Menu nederst -->
         <nav class="menu">
-            <a href="forside.html" class="menu-knap">
-                <img src="familie.png" alt="Familie">
-            </a>
+    <a href="index.html" class="menu-knap">
+        <img src="people.png" alt="Familie">
+    </a>
 
-            <a href="huset.html" class="menu-knap active">
-                <img src="hus5.png" alt="Hjem">
-            </a>
-        </nav>
+    <a href="huset.html" class="menu-knap active">
+       <img src="home.png" alt="Hjem">
+    </a>
+</nav>
 
     </main>
-
+<script src="huset.js"></script>
 </body>
 </html>

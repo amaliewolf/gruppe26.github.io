@@ -85,3 +85,32 @@ farveVaelger.addEventListener("input", function () {
 });
 
 opdaterUI();
+
+const bekraeftKnap = document.querySelector(".bekraeft-knap");
+
+bekraeftKnap.addEventListener("click", function () {
+    const vaerdi = Number(slider.value);
+
+    const linje1 = document.getElementById("popupLinje1");
+    const linje2 = document.getElementById("popupLinje2");
+    const linje3 = document.getElementById("popupLinje3");
+    const popupBox = document.querySelector(".popup-box");
+
+    popupBox.classList.remove("ubehageligt", "neutral", "behageligt");
+
+    linje1.textContent = "Tak for din feedback";
+
+    if (vaerdi < 40) {
+        popupBox.classList.add("ubehageligt");
+        linje2.textContent = "Det tyder på at rummet ikke føles optimalt";
+        linje3.textContent = "Det bliver taget med i forståelsen af jeres præferencer";
+    } else if (vaerdi < 60) {
+        popupBox.classList.add("neutral");
+        linje2.textContent = "Rummet opleves neutralt";
+        linje3.textContent = "Det bidrager til forståelsen af jeres præferencer";
+    } else {
+        popupBox.classList.add("behageligt");
+        linje2.textContent = "Rummet opleves behageligt";
+        linje3.textContent = "Det bekræfter hvad der fungerer godt";
+    }
+});

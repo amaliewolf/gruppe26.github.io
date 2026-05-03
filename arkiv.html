@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arkiv</title>
+    <link rel="stylesheet" href="arkiv.css">
+</head>
+
+<body>
+
+<main class="app">
+   <a href="huset.html" class="tilbage-knap">
+    ←
+</a>
+
+    <h1>Arkiv</h1>
+    <p class="undertekst">Tidligere målinger fra hjemmet</p>
+
+    <section class="arkiv-boks">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tidspunkt</th>
+                    <th>Temperatur</th>
+                    <th>Luftfugtighed</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody">
+                <tr>
+                    <td colspan="3">Henter data...</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+   <nav class="menu">
+    <a href="index.html" class="menu-knap">
+        <img src="people.png" alt="Familie">
+    </a>
+
+    <a href="huset.html" class="menu-knap active">
+        <img src="home.png" alt="Hjem">
+    </a>
+</nav>
+
+</main>
+
+<script src="arkiv.js"></script>
+
+</body>
+</html>
