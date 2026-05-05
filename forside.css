@@ -419,3 +419,167 @@ h1 {
         height: 70px;
     }
 }
+
+#farveVaelger {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 55px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 250;
+}
+
+.farve-knap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobil stående */
+@media (max-width: 600px) {
+    .app {
+        padding: 95px 18px 120px;
+        overflow-x: hidden;
+    }
+
+    .top-knapper {
+        top: 28px;
+        right: 22px;
+        gap: 10px;
+    }
+
+    h1 {
+        font-size: 26px;
+        line-height: 1.2;
+        max-width: 90%;
+        margin: 0 auto 35px;
+    }
+
+    .klover-wrapper {
+        width: 165px;
+        height: 195px;
+        margin-bottom: 45px;
+    }
+
+    .slider-omraade {
+        display: grid;
+        grid-template-columns: 1fr 220px 1fr;
+        gap: 12px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .slider-omraade p {
+        font-size: 18px;
+        min-width: 0;
+        white-space: nowrap;
+    }
+
+    .slider {
+        width: 220px;
+    }
+
+    .bekraeft-knap {
+        width: 220px;
+        font-size: 22px;
+        margin-top: 35px;
+    }
+
+    .emoji-panel {
+        position: fixed;
+        top: 150px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(90vw, 360px);
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        padding: 22px;
+        border-radius: 24px;
+    }
+
+    .emoji-panel::after {
+        right: 52px;
+    }
+
+    .emoji-panel button {
+        width: 55px;
+        height: 55px;
+        font-size: 30px;
+    }
+}
+
+/* Telefon liggende */
+@media (orientation: landscape) and (max-height: 500px) {
+    .app {
+        padding: 25px 30px 85px;
+        overflow-x: hidden;
+    }
+
+    .top-knapper {
+        top: 18px;
+        right: 35px;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 12px;
+    }
+
+    .klover-wrapper {
+        width: 95px;
+        height: 115px;
+        margin-bottom: 18px;
+    }
+
+    .slider-omraade {
+        display: grid;
+        grid-template-columns: 130px 360px 130px;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .slider {
+        width: 360px;
+        height: 34px;
+    }
+
+    .slider::-webkit-slider-thumb {
+        width: 42px;
+        height: 42px;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 42px;
+        height: 42px;
+    }
+
+    .bekraeft-knap {
+        margin-top: 18px;
+        width: 210px;
+        padding: 10px 0;
+    }
+
+    .emoji-panel {
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 420px;
+        grid-template-columns: repeat(5, 60px);
+        gap: 18px;
+        padding: 25px;
+    }
+
+    .menu {
+        height: 65px;
+    }
+
+    .menu-knap {
+        width: 62px;
+        height: 54px;
+    }
+}

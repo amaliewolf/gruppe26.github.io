@@ -237,3 +237,223 @@ h1 {
     opacity: 0.9;
 }
 
+/* Mobil stående */
+@media (max-width: 600px) {
+    .app {
+        padding: 55px 20px 120px;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 38px;
+        line-height: 1.1;
+    }
+
+    .status {
+        font-size: 28px;
+        margin: 14px 0 45px;
+    }
+
+    .hus-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .maalinger-boks {
+        width: 100%;
+        max-width: 360px;
+        padding: 28px 30px;
+    }
+
+    .maalinger-boks h2 {
+        font-size: 25px;
+        line-height: 1.2;
+    }
+
+    .maalinger-boks p {
+        font-size: 22px;
+    }
+
+    .stor-hus {
+        width: 230px;
+        height: 180px;
+        margin-top: 95px;
+    }
+
+    .stor-hus::before {
+        top: -105px;
+        border-left: 125px solid transparent;
+        border-right: 125px solid transparent;
+        border-bottom: 105px solid #78add0;
+    }
+}
+
+/* Telefon liggende */
+@media (orientation: landscape) and (max-height: 500px) {
+    .app {
+        padding: 18px 25px 80px;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .status {
+        font-size: 21px;
+        margin: 6px 0 18px;
+    }
+
+    .hus-side {
+        display: grid;
+        grid-template-columns: 360px 230px;
+        justify-content: center;
+        align-items: center;
+        gap: 45px;
+        max-width: 800px;
+    }
+
+    .maalinger-boks {
+        width: 360px;
+        padding: 24px 28px;
+    }
+
+    .maalinger-boks h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .maalinger-boks p {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .opdateret-tekst {
+        font-size: 13px;
+    }
+
+    .arkiv-ikon-knap {
+        width: 50px;
+        height: 50px;
+        margin-top: 10px;
+    }
+
+    .ikon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .stor-hus {
+        width: 150px;
+        height: 118px;
+        margin-top: 70px;
+    }
+
+    .stor-hus::before {
+        top: -72px;
+        border-left: 88px solid transparent;
+        border-right: 88px solid transparent;
+        border-bottom: 72px solid #78add0;
+    }
+
+    .familie-i-hus {
+        width: 55px;
+        bottom: 22px;
+    }
+
+    .menu {
+        height: 65px;
+    }
+}
+/* LIGGENDE TELEFON - måleboks og hus ved siden af hinanden */
+@media (orientation: landscape) and (max-height: 500px) {
+    .app {
+        padding: 16px 24px 75px;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    h1 {
+        font-size: 26px;
+        margin: 0;
+    }
+
+    .status {
+        font-size: 20px;
+        margin: 6px 0 14px;
+    }
+
+    .hus-side {
+        display: grid;
+        grid-template-columns: 340px 210px;
+        justify-content: center;
+        align-items: center;
+        gap: 45px;
+        max-width: 750px;
+        margin: 0 auto;
+        flex-wrap: nowrap;
+    }
+
+    .maalinger-omraade {
+        width: 340px;
+    }
+
+    .maalinger-boks {
+        width: 340px;
+        padding: 22px 26px;
+    }
+
+    .maalinger-boks h2 {
+        font-size: 20px;
+        margin-bottom: 14px;
+    }
+
+    .maalinger-boks p {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .opdateret-tekst {
+        font-size: 13px;
+    }
+
+    .arkiv-ikon-knap {
+        width: 48px;
+        height: 48px;
+        margin-top: 10px;
+    }
+
+    .ikon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .hus-illustration {
+        min-width: 210px;
+    }
+
+    .stor-hus {
+        width: 160px;
+        height: 125px;
+        margin-top: 70px;
+    }
+
+    .stor-hus::before {
+        top: -75px;
+        border-left: 92px solid transparent;
+        border-right: 92px solid transparent;
+        border-bottom: 75px solid #78add0;
+    }
+
+    .familie-i-hus {
+        width: 55px;
+        bottom: 22px;
+    }
+
+    .menu {
+        height: 65px;
+    }
+}

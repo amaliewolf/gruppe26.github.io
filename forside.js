@@ -1,7 +1,5 @@
 const slider = document.getElementById("rumSlider");
 const klover = document.getElementById("klover");
-
-const farveKnap = document.getElementById("farveKnap");
 const farveVaelger = document.getElementById("farveVaelger");
 
 const emojiKnap = document.getElementById("emojiKnap");
@@ -69,11 +67,6 @@ function opdaterUI() {
 
 // Når man trækker i slideren
 slider.addEventListener("input", opdaterUI);
-
-// Når man trykker på farvehjulet
-farveKnap.addEventListener("click", function () {
-    farveVaelger.click();
-});
 
 // Når man vælger en farve
 farveVaelger.addEventListener("input", function () {
